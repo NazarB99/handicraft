@@ -1,11 +1,20 @@
 import React, {useState} from 'react';
-import {Text, View, StyleSheet, Pressable} from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  Pressable,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
 import {translate} from '../commons/Localization';
 import Input from '../components/Input';
 import {BLUE, DARK_COLOR} from '../commons/Constants';
 import SubmitButton from '../components/SubmitButton';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import LanguageButton from '../components/LanguageButton';
 
-const LoginScreen = () => {
+const LoginScreen = props => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -29,8 +38,8 @@ const LoginScreen = () => {
             {translate('forgot_password')}
           </Text>
         </Pressable>
-        <SubmitButton />
-        <Pressable>
+        <SubmitButton label={translate('login')} />
+        <TouchableOpacity onPress={() => props.navigation.navigate('Register')}>
           <View style={styles.bottomText}>
             <Text style={styles.createAccount}>
               {translate('create_account')}{' '}
@@ -39,7 +48,12 @@ const LoginScreen = () => {
               </Text>
             </Text>
           </View>
-        </Pressable>
+        </TouchableOpacity>
+        <LanguageButton
+          label={translate('language')}
+          onPress={() => props.navigation.navigate('Languages')}
+          image={require('../../assets/russia.png')}
+        />
       </View>
       <View style={styles.versionText}>
         <Text>{translate('Version')} 0.0.1</Text>

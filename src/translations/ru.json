@@ -6,5 +6,12 @@
   "login": "Войти",
   "create_account": "Создайте аккаунт",
   "or_signin_with_social": "или войдите через соцсети",
-  "Version": "Версия"
+  "Version": "Версия",
+  "Name": "Имя",
+  "Surname":  "Фамилия",
+  "Email":  "Email",
+  "artisan": "Ремесленник",
+  "client": "Клиент",
+  "register": "Зарегистрироваться",
+  "language": "Язык"
 }

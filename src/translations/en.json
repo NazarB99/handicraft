@@ -6,5 +6,12 @@
   "login": "Login",
   "create_account": "Create an account",
   "or_signin_with_social": "or sign in with social media",
-  "Version": "Version"
+  "Version": "Version",
+  "Name": "Name",
+  "Surname":  "Surname",
+  "Email":  "Email",
+  "artisan": "Artisan",
+  "client": "Client",
+  "register": "Register",
+  "language": "Language"
 }

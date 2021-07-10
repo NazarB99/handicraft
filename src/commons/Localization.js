@@ -27,7 +27,6 @@ const setI18nConfig = () => {
   translation.cache.clear();
   // update layout direction
   // I18nManager.forceRTL(isRTL);
-  console.log(languageTag);
 
   // set i18n-js config
   i18n.translations = {[languageTag]: translationGetters[languageTag]()};

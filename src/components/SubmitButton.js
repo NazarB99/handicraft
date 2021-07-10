@@ -3,11 +3,11 @@ import {Pressable, Text, View, StyleSheet} from 'react-native';
 import {translate} from '../commons/Localization';
 import {BLUE} from '../commons/Constants';
 
-const SubmitButton = () => {
+const SubmitButton = ({ label }) => {
   return (
     <Pressable>
       <View style={styles.button}>
-        <Text style={styles.buttonText}>{translate('login')}</Text>
+        <Text style={styles.buttonText}>{label}</Text>
       </View>
     </Pressable>
   );
