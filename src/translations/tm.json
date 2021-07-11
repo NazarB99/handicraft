@@ -13,5 +13,6 @@
   "artisan": "Ремесленник",
   "client": "Клиент",
   "register": "Зарегистрироваться",
-  "language": "Language"
+  "language": "Language",
+  "SearchExample": "Например, браслет"
 }

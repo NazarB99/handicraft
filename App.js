@@ -18,6 +18,12 @@ import FavoritesScreen from './src/screens/FavoritesScreen';
 import ProfileScreen from './src/screens/ProfileScreen';
 import CartScreen from './src/screens/CartScreen';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import {YELLOW} from './src/commons/Constants';
+import Home from './src/components/Home';
+import Catalog from './src/components/Catalog';
+import FavoriteTab from './src/components/FavoriteTab';
+import CartTab from './src/components/CartTab';
+import ProfileTab from "./src/components/ProfileTab";
 
 const Tabs = createBottomTabNavigator();
 
@@ -37,22 +43,23 @@ const App: () => Node = () => {
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <PaperProvider theme={theme}>
         <NavigationContainer>
-          <Tabs.Navigator>
+          <Tabs.Navigator
+            tabBarOptions={{
+              activeTintColor: YELLOW,
+            }}>
             <Tabs.Screen
               name="Home"
               component={HomeScreen}
               options={{
                 tabBarIcon: ({focused, color, size}) => {
-                  return <FontAwesome5 name="gem" size={size} color={color} />;
+                  return <Home color={color} />;
                 },
               }}
             />
             <Tabs.Screen
               options={{
                 tabBarIcon: ({focused, color, size}) => {
-                  return (
-                    <FontAwesome5 name="stream" size={size} color={color} />
-                  );
+                  return <Catalog color={color} />;
                 },
               }}
               name="Catalog"
@@ -61,9 +68,7 @@ const App: () => Node = () => {
             <Tabs.Screen
               options={{
                 tabBarIcon: ({focused, color, size}) => {
-                  return (
-                    <FontAwesome5 name="heart" size={size} color={color} />
-                  );
+                  return <FavoriteTab color={color} />;
                 },
               }}
               name="Favorites"
@@ -72,26 +77,20 @@ const App: () => Node = () => {
             <Tabs.Screen
               options={{
                 tabBarIcon: ({focused, color, size}) => {
-                  return <FontAwesome5 name="user" size={size} color={color} />;
-                },
-              }}
-              name="Profile"
-              component={ProfileScreen}
-            />
-            <Tabs.Screen
-              options={{
-                tabBarIcon: ({focused, color, size}) => {
-                  return (
-                    <FontAwesome5
-                      name="shopping-cart"
-                      size={size}
-                      color={color}
-                    />
-                  );
+                  return <CartTab color={color} />;
                 },
               }}
               name="Cart"
               component={CartScreen}
+            />
+            <Tabs.Screen
+              options={{
+                tabBarIcon: ({focused, color, size}) => {
+                  return <ProfileTab color={color} />;
+                },
+              }}
+              name="Profile"
+              component={ProfileScreen}
             />
           </Tabs.Navigator>
         </NavigationContainer>

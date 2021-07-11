@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import LanguageButton from '../components/LanguageButton';
-import { translate } from "../commons/Localization";
+import {translate} from '../commons/Localization';
 
 const LanguagesScreen = () => {
   return (

@@ -13,5 +13,6 @@
   "artisan": "Artisan",
   "client": "Client",
   "register": "Register",
-  "language": "Language"
+  "language": "Language",
+  "SearchExample": "For example, bracelet"
 }
