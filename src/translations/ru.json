@@ -14,5 +14,13 @@
   "client": "Клиент",
   "register": "Зарегистрироваться",
   "language": "Язык",
-  "SearchExample": "Например, браслет"
+  "SearchExample": "Например, браслет",
+  "Catalog": "Каталог",
+  "Back": "Назад",
+  "Category": "Категория",
+  "Material": "Материал",
+  "Manufacturer": "Производитель",
+  "Price": "Цена",
+  "Remaining": "Остаток",
+  "Buy": "Купить"
 }

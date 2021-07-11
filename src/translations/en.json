@@ -14,5 +14,13 @@
   "client": "Client",
   "register": "Register",
   "language": "Language",
-  "SearchExample": "For example, bracelet"
+  "SearchExample": "For example, bracelet",
+  "Catalog": "Catalog",
+  "Back": "Back",
+  "Category": "Category",
+  "Material": "Material",
+  "Manufacturer": "Manufacturer",
+  "Price": "Price",
+  "Remaining": "Remaining",
+  "Buy": "Buy"
 }

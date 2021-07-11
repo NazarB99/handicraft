@@ -1,32 +1,34 @@
 import React from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import Heart from './Heart';
 import Cart from './Cart';
 
-const Element = () => {
+const Element = ({onPress}) => {
   return (
-    <View style={styles.element}>
-      <View style={styles.photoSection}>
-        <View style={{position: 'absolute', top: 10, left: 5}}>
-          <Heart filled={false} />
+    <TouchableOpacity onPress={onPress}>
+      <View style={styles.element}>
+        <View style={styles.photoSection}>
+          <View style={{position: 'absolute', top: 10, left: 5}}>
+            <Heart filled={false} />
+          </View>
+          <View style={{position: 'absolute', bottom: 5, right: 5}}>
+            <Cart />
+          </View>
         </View>
-        <View style={{position: 'absolute', bottom: 5, right: 5}}>
-          <Cart />
+        <View style={styles.info}>
+          <Text style={styles.title}>Product Title</Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              marginTop: 5,
+            }}>
+            <Text>10 TMT</Text>
+            <Text style={{color: '#818181'}}>More info...</Text>
+          </View>
         </View>
       </View>
-      <View style={styles.info}>
-        <Text style={styles.title}>Product Title</Text>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            marginTop: 5,
-          }}>
-          <Text>10 TMT</Text>
-          <Text style={{color: '#818181'}}>More info...</Text>
-        </View>
-      </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
