@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from "react";
 import {View, StyleSheet, Text, Image, TouchableOpacity} from 'react-native';
 import Logo from '../components/Logo';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -6,6 +6,9 @@ import {translate} from '../commons/Localization';
 import Line from '../components/Line';
 
 const DetailScreen = props => {
+  useEffect(() => {
+    console.log(props.route);
+  },[])
   return (
     <View style={styles.wrapper}>
       <View style={{alignSelf: 'center', marginBottom: 20}}>
@@ -22,12 +25,12 @@ const DetailScreen = props => {
       <Image
         style={{height: 190, marginTop: 15, borderRadius: 5}}
         source={{
-          uri: 'https://unsplash.com/photos/avtFK2joNSI/download?force=true&w=640',
+          uri: props.route.params.item.picture,
         }}
       />
       <View style={styles.productInfo}>
         <Text style={styles.categoryTitle}>{translate('Category')}:</Text>
-        <Text>Test</Text>
+        <Text>{item.cate}</Text>
       </View>
       <View style={styles.productInfo}>
         <Text style={styles.categoryTitle}>{translate('Material')}:</Text>

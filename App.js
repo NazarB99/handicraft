@@ -24,6 +24,9 @@ import FavoriteTab from './src/components/FavoriteTab';
 import CartTab from './src/components/CartTab';
 import ProfileTab from './src/components/ProfileTab';
 import * as global from './src/commons/global';
+import {Provider} from 'react-redux';
+import store from './src/store/store';
+import {handleLocalizationChange} from './src/commons/Localization';
 
 const Tabs = createBottomTabNavigator();
 
@@ -31,10 +34,10 @@ const App: () => Node = () => {
   const [lang, setLang] = useState(null);
 
   useEffect(() => {
+    handleLocalizationChange(true);
     async function getLang() {
       const value = await global.GLOBAL_LANGUAGE_VAR();
-      console.log('valueeeeee', value);
-      setLang(value);
+      setTimeout(() => setLang(value), 1000);
     }
 
     getLang();
@@ -53,62 +56,64 @@ const App: () => Node = () => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      {lang ? (
-        <PaperProvider theme={theme}>
-          <NavigationContainer>
-            <Tabs.Navigator
-              tabBarOptions={{
-                activeTintColor: YELLOW,
-              }}>
-              <Tabs.Screen
-                name="Home"
-                component={HomeScreen}
-                options={{
-                  tabBarIcon: ({focused, color, size}) => {
-                    return <Home color={color} />;
-                  },
-                }}
-              />
-              <Tabs.Screen
-                options={{
-                  tabBarIcon: ({focused, color, size}) => {
-                    return <Catalog color={color} />;
-                  },
-                }}
-                name="Catalog"
-                component={CatalogScreen}
-              />
-              <Tabs.Screen
-                options={{
-                  tabBarIcon: ({focused, color, size}) => {
-                    return <FavoriteTab color={color} />;
-                  },
-                }}
-                name="Favorites"
-                component={FavoritesScreen}
-              />
-              <Tabs.Screen
-                options={{
-                  tabBarIcon: ({focused, color, size}) => {
-                    return <CartTab color={color} />;
-                  },
-                }}
-                name="Cart"
-                component={CartScreen}
-              />
-              <Tabs.Screen
-                options={{
-                  tabBarIcon: ({focused, color, size}) => {
-                    return <ProfileTab color={color} />;
-                  },
-                }}
-                name="Profile"
-                component={ProfileScreen}
-              />
-            </Tabs.Navigator>
-          </NavigationContainer>
-        </PaperProvider>
-      ) : null}
+      <Provider store={store}>
+        {lang ? (
+          <PaperProvider theme={theme}>
+            <NavigationContainer>
+              <Tabs.Navigator
+                tabBarOptions={{
+                  activeTintColor: YELLOW,
+                }}>
+                <Tabs.Screen
+                  name="Home"
+                  component={HomeScreen}
+                  options={{
+                    tabBarIcon: ({focused, color, size}) => {
+                      return <Home color={color} />;
+                    },
+                  }}
+                />
+                <Tabs.Screen
+                  options={{
+                    tabBarIcon: ({focused, color, size}) => {
+                      return <Catalog color={color} />;
+                    },
+                  }}
+                  name="Catalog"
+                  component={CatalogScreen}
+                />
+                <Tabs.Screen
+                  options={{
+                    tabBarIcon: ({focused, color, size}) => {
+                      return <FavoriteTab color={color} />;
+                    },
+                  }}
+                  name="Favorites"
+                  component={FavoritesScreen}
+                />
+                <Tabs.Screen
+                  options={{
+                    tabBarIcon: ({focused, color, size}) => {
+                      return <CartTab color={color} />;
+                    },
+                  }}
+                  name="Cart"
+                  component={CartScreen}
+                />
+                <Tabs.Screen
+                  options={{
+                    tabBarIcon: ({focused, color, size}) => {
+                      return <ProfileTab color={color} />;
+                    },
+                  }}
+                  name="Profile"
+                  component={ProfileScreen}
+                />
+              </Tabs.Navigator>
+            </NavigationContainer>
+          </PaperProvider>
+        ) : null}
+      </Provider>
     </SafeAreaView>
   );
 };

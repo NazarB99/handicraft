@@ -1,13 +1,22 @@
 import React from 'react';
-import {Pressable, Text, View, StyleSheet} from 'react-native';
-import {translate} from '../commons/Localization';
+import {
+  Pressable,
+  Text,
+  View,
+  StyleSheet,
+  ActivityIndicator,
+} from 'react-native';
 import {BLUE} from '../commons/Constants';
 
-const SubmitButton = ({ label }) => {
+const SubmitButton = ({label, onPress, loading}) => {
   return (
-    <Pressable>
+    <Pressable onPress={onPress}>
       <View style={styles.button}>
-        <Text style={styles.buttonText}>{label}</Text>
+        {loading ? (
+          <ActivityIndicator color="#fff" />
+        ) : (
+          <Text style={styles.buttonText}>{label}</Text>
+        )}
       </View>
     </Pressable>
   );

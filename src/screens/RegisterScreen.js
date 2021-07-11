@@ -1,33 +1,57 @@
 import React, {useState} from 'react';
 import {View, StyleSheet} from 'react-native';
+import {connect} from 'react-redux';
 import RadioGroup from 'react-native-radio-buttons-group';
 import Input from '../components/Input';
+import {register} from '../store/actions/userActions';
 import {translate} from '../commons/Localization';
-import SubmitButton from "../components/SubmitButton";
+import SubmitButton from '../components/SubmitButton';
 
-const radioButtonsData = [
-  {
-    id: '1',
-    label: translate('artisan'),
-    value: 'artisan',
-  },
-  {
-    id: '2',
-    label: translate('client'),
-    value: 'client',
-  },
-];
+const RegisterScreen = props => {
+  const radioButtonsData = [
+    {
+      id: '1',
+      label: translate('artisan'),
+      value: 'artisan',
+    },
+    {
+      id: '2',
+      label: translate('client'),
+      value: 'customer',
+    },
+  ];
 
-const RegisterScreen = () => {
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [radioButtons, setRadioButtons] = useState(radioButtonsData);
+  const [loading, setLoading] = useState(false);
 
   function onPressRadioButton(radioButtonsArray) {
     setRadioButtons(radioButtonsArray);
   }
+
+  const onPress = async () => {
+    setLoading(true);
+    const userType = radioButtons.filter(item => item.selected === true)[0];
+    if (userType && userType.value && email && password && name && surname) {
+      props
+        .register(email, password, name, surname, userType.value)
+        .then(message => {
+          setLoading(false);
+          props.navigation.goBack();
+          setTimeout(() => alert(message), 1000);
+        })
+        .catch(err => {
+          setLoading(false);
+          alert(err);
+        });
+    } else {
+      setLoading(false);
+      alert(translate('FillUpEmpty'));
+    }
+  };
 
   return (
     <View style={styles.wrapper}>
@@ -58,7 +82,11 @@ const RegisterScreen = () => {
         layout="row"
       />
       <View style={styles.button}>
-        <SubmitButton label={translate('register')} />
+        <SubmitButton
+          onPress={onPress}
+          loading={loading}
+          label={translate('register')}
+        />
       </View>
       {/*<View style={styles.radioButtons}>*/}
       {/*  <RadioOption*/}
@@ -94,4 +122,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RegisterScreen;
+const mapStateToProps = state => ({
+  user: state.user,
+});
+
+export default connect(mapStateToProps, {register})(RegisterScreen);

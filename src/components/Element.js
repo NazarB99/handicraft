@@ -1,29 +1,37 @@
 import React from 'react';
-import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  ImageBackground,
+} from 'react-native';
 import Heart from './Heart';
 import Cart from './Cart';
 
-const Element = ({onPress}) => {
+const Element = ({onPress, item}) => {
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.element}>
-        <View style={styles.photoSection}>
+        <ImageBackground
+          source={{uri: item.picture}}
+          style={styles.photoSection}>
           <View style={{position: 'absolute', top: 10, left: 5}}>
             <Heart filled={false} />
           </View>
           <View style={{position: 'absolute', bottom: 5, right: 5}}>
             <Cart />
           </View>
-        </View>
+        </ImageBackground>
         <View style={styles.info}>
-          <Text style={styles.title}>Product Title</Text>
+          <Text style={styles.title}>{item.name}</Text>
           <View
             style={{
               flexDirection: 'row',
               justifyContent: 'space-between',
               marginTop: 5,
             }}>
-            <Text>10 TMT</Text>
+            <Text>{Math.round(item.price)} TMT</Text>
             <Text style={{color: '#818181'}}>More info...</Text>
           </View>
         </View>

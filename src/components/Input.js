@@ -7,6 +7,7 @@ const Input = ({placeholder, value, onChangeText, isPassword}) => {
     <TextInput
       placeholder={placeholder}
       value={value}
+      autoCapitalize="none"
       placeholderTextColor="#d2dae2"
       secureTextEntry={isPassword}
       onChangeText={onChangeText}

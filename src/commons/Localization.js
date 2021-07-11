@@ -25,7 +25,6 @@ const setI18nConfig = async () => {
     RNLocalize.findBestAvailableLanguage(Object.keys(translationGetters)) ||
     fallback;
 
-  console.log(await global.GLOBAL_LANGUAGE_VAR());
   languageTag = (await global.GLOBAL_LANGUAGE_VAR()) || 'ru';
 
   // clear translation cache
@@ -38,9 +37,11 @@ const setI18nConfig = async () => {
   i18n.locale = languageTag;
 };
 
-export const handleLocalizationChange = () => {
+export const handleLocalizationChange = (withoutRestart = false) => {
   setI18nConfig();
-  RNRestart.Restart();
+  if (!withoutRestart) {
+    RNRestart.Restart();
+  }
 };
 
 export const translate = (text: string) => {

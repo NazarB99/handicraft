@@ -1,22 +1,55 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Text,
   View,
   StyleSheet,
   Pressable,
   TouchableOpacity,
-  Image,
 } from 'react-native';
+import {connect} from 'react-redux';
 import {translate} from '../commons/Localization';
 import Input from '../components/Input';
 import {BLUE, DARK_COLOR} from '../commons/Constants';
 import SubmitButton from '../components/SubmitButton';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import LanguageButton from '../components/LanguageButton';
+import * as global from '../commons/global';
+import {login} from '../store/actions/userActions';
 
 const LoginScreen = props => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [lang, setLang] = useState(require('../../assets/russia.png'));
+
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => getCountry(), []);
+
+  const getCountry = async () => {
+    const CURRENT_LANG = await global.GLOBAL_LANGUAGE_VAR();
+    console.log(CURRENT_LANG);
+    if (CURRENT_LANG === 'ru') {
+      setLang(require('../../assets/russia.png'));
+    }
+    if (CURRENT_LANG === 'en') {
+      setLang(require('../../assets/united-states-of-america.png'));
+    }
+    if (CURRENT_LANG === 'tm') {
+      setLang(require('../../assets/turkmenistan.png'));
+    }
+  };
+
+  const onPress = async () => {
+    setLoading(true);
+    props
+      .login(email, password)
+      .then(() => {
+        setLoading(false);
+      })
+      .catch(err => {
+        setLoading(false);
+        alert(err);
+      });
+  };
 
   return (
     <View style={styles.wrapper}>
@@ -38,7 +71,11 @@ const LoginScreen = props => {
             {translate('forgot_password')}
           </Text>
         </Pressable>
-        <SubmitButton label={translate('login')} />
+        <SubmitButton
+          onPress={onPress}
+          loading={loading}
+          label={translate('login')}
+        />
         <TouchableOpacity onPress={() => props.navigation.navigate('Register')}>
           <View style={styles.bottomText}>
             <Text style={styles.createAccount}>
@@ -52,7 +89,7 @@ const LoginScreen = props => {
         <LanguageButton
           label={translate('language')}
           onPress={() => props.navigation.navigate('Languages')}
-          image={require('../../assets/russia.png')}
+          image={lang}
         />
       </View>
       <View style={styles.versionText}>
@@ -100,4 +137,10 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginScreen;
+const mapStateToProps = state => ({
+  user: state.user,
+});
+
+const mapDispatchToProps = {login};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
